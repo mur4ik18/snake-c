@@ -5,12 +5,12 @@
 
 #define COLLUMNS 40
 #define ROWS 20
-
+//#define GAME_SPEED 5*100000
 int main(){
   int quit = 0;
   int x[1000], y[1000];
   // Hide cursor
-
+  int game_speed = 400000;
   // switch to canonical mode, disable echo
   struct termios oldt, newt;
   tcgetattr(STDIN_FILENO, &oldt);
@@ -81,6 +81,7 @@ int main(){
       
       if (x[head] == apple_x && y[head] == apple_y){
         apple_x = -1;
+        game_speed-=1000;
         score++;
         printf("\a");
       } else {
@@ -94,6 +95,7 @@ int main(){
         if (x[i] == x[head] && y[i] == y[head]){
           gameover = 1;
           score=0;
+          
         }
       }
 
@@ -102,9 +104,10 @@ int main(){
       printf("\e[%iF", y[head] + 1);
       fflush(stdout);
 
-      usleep(5*5000000/60);
+      usleep(game_speed);
 
       // Read keyboard
+
       struct timeval tv;
       fd_set fds;
       tv.tv_sec = 0;
@@ -116,21 +119,21 @@ int main(){
         int ch = getchar();
         if (ch == 27 || ch == 'q') {
           quit = 1;
-        } else if (ch == 'h' && xdir != 1) {
+        } else if (((ch == 'h') || (ch == 'a')) && xdir != 1) {
           xdir = -1;
           ydir = 0;
-        } else if (ch == 'j' && ydir != 1) {
+        } else if (((ch == 'k') || (ch == 'w'))  && ydir != 1) {
           xdir = 0;
           ydir = -1;
-        } else if (ch == 'k' && ydir != -1) {
+        } else if (((ch == 'j') || (ch == 's')) && ydir != -1) {
           xdir = 0;
           ydir = 1;
-        }else if (ch == 'l' && xdir != -1) {
+        }else if (((ch == 'l') || (ch == 'd')) && xdir != -1) {
           xdir = 1;
           ydir = 0;
         }
       }
-    } 
+    }
     if (!quit) {
       // game over
       printf("\e[%iB\e[%iCGame over!", ROWS / 2, COLLUMNS / 2-5);
