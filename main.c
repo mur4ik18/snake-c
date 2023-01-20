@@ -17,9 +17,9 @@ int main(){
   newt = oldt;
   newt.c_lflag &= ~( ICANON | ECHO);
   tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
+  int score = 0;
   while (!quit) {
-
+    
     printf("\e[?25l");
 
     printf(":");
@@ -54,6 +54,10 @@ int main(){
     int xdir = 1, ydir = 0;
     int apple_x = -1, apple_y;
     while (!quit && !gameover) {
+
+      printf("\e[%iB\e[%iCGame score : %d",ROWS+2, COLLUMNS / 2-7, score);
+      printf("\e[%iF",ROWS+2 );
+   
       // Create new apple
       if (apple_x <0) {
         apple_x = rand() % COLLUMNS;
@@ -74,10 +78,11 @@ int main(){
       // clear snake tail
       printf("\e[%iB\e[%iC.", y[tail] + 1, x[tail] + 1);
       printf("\e[%iF", y[tail] + 1);
+      
       if (x[head] == apple_x && y[head] == apple_y){
         apple_x = -1;
+        score++;
         printf("\a");
-
       } else {
         tail = (tail +1) % 1000;
       }
@@ -88,6 +93,7 @@ int main(){
       for (size_t i = tail; i != head; i = (i+1) % 1000) {
         if (x[i] == x[head] && y[i] == y[head]){
           gameover = 1;
+          score=0;
         }
       }
 
