@@ -12,7 +12,7 @@
 int main(){
   int quit = 0;
   int x[1000], y[1000];
-  int game_speed = 400000;
+  int game_speed = 350000;
   int score = 0;
   // switch to canonical mode, disable echo
   struct termios oldt, newt;
@@ -59,7 +59,9 @@ int main(){
 
       if (x[head] == apple_x && y[head] == apple_y){
         apple_x = -1;
-        game_speed-=1000;
+        if (score%4 == 0){
+          game_speed -= 2000;   
+        }  
         score++;
         printf("\a");
       } else {
@@ -83,7 +85,7 @@ int main(){
       fflush(stdout);
 
       usleep(game_speed);
-
+      
       // Read keyboard
 
       struct timeval tv;
