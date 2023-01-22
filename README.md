@@ -4,7 +4,7 @@
 ## ToDo:
 - [x] - Score
 - [x] - wasd mouvement
-- [ ] - Pause
+- [x] - Pause
 - [ ] - Acceleration
 - [ ] - Menu
   - [ ] - Settings
