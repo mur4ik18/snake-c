@@ -12,32 +12,30 @@
 int main(){
   int quit = 0;
   int x[1000], y[1000];
-  // Hide cursor
   int game_speed = 400000;
+  int score = 0;
   // switch to canonical mode, disable echo
   struct termios oldt, newt;
   tcgetattr(STDIN_FILENO, &oldt);
   newt = oldt;
   newt.c_lflag &= ~( ICANON | ECHO);
   tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-  int score = 0;
-  while (!quit) {
-     
-    map_generation(COLLUMNS, ROWS);
 
+  while (!quit) {
+    // snake params
     int head = 0, tail =0;
+    // direction
+    int xdir = 1, ydir = 0;
+    // apple params
+    int apple_x = -1, apple_y;
+    // games params
+    int gameover = 0, pause = 0;
+    // spawn head
     x[head]= COLLUMNS / 2;
     y[head]= ROWS / 2;
-
-    int gameover = 0;
-
-    int xdir = 1, ydir = 0;
-    int apple_x = -1, apple_y;
+    map_generation(COLLUMNS, ROWS);
     while (!quit && !gameover) {
-
-      printf("\e[%iB\e[%iCGame score : %d",ROWS+2, COLLUMNS / 2-7, score);
-      printf("\e[%iF",ROWS+2 );
-   
+      show_score(COLLUMNS, ROWS, score);
       // Create new apple
       if (apple_x <0) {
         apple_x = rand() % COLLUMNS;
@@ -50,15 +48,15 @@ int main(){
         }
         if (apple_x >=0) {
           // Draw
-
           printf("\e[%iB\e[%iC*",apple_y +1, apple_x+1);
           printf("\e[%iF", apple_y+1);
         }
       }
+      
       // clear snake tail
       printf("\e[%iB\e[%iC.", y[tail] + 1, x[tail] + 1);
       printf("\e[%iF", y[tail] + 1);
-      
+
       if (x[head] == apple_x && y[head] == apple_y){
         apple_x = -1;
         game_speed-=1000;
@@ -99,7 +97,21 @@ int main(){
         int ch = getchar();
         if (ch == 27 || ch == 'q') {
           quit = 1;
-        } else if (((ch == 'h') || (ch == 'a')) && xdir != 1) {
+        } else if (ch == ' '){
+          if (pause) {
+            pause = 0;
+          } else {
+            pause = 1;
+            while (pause) {
+              printf("\e[%iB\e[%iCPAUSE!", ROWS+2, COLLUMNS / 2-1);
+              printf("\e[%iF", ROWS+2);
+              int ch = getchar();
+              if (ch == ' ') {
+                pause = 0;
+              }
+            }
+          }
+        }else if (((ch == 'h') || (ch == 'a')) && xdir != 1) {
           xdir = -1;
           ydir = 0;
         } else if (((ch == 'k') || (ch == 'w'))  && ydir != 1) {
