@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <termios.h>
-
+#include "map.h"
 #define COLLUMNS 40
 #define ROWS 20
 //#define GAME_SPEED 5*100000
+
+
+
 int main(){
   int quit = 0;
   int x[1000], y[1000];
@@ -19,31 +22,8 @@ int main(){
   tcsetattr(STDIN_FILENO, TCSANOW, &newt);
   int score = 0;
   while (!quit) {
-    
-    printf("\e[?25l");
-
-    printf(":");
-    for (size_t i =0; i<COLLUMNS; i++) {
-      printf("-");
-    }
-    printf(":\n");
-
-
-    for (size_t j=0; j<ROWS; j++){
-      printf(":");
-      for (size_t i =0; i<COLLUMNS; i++) {
-        printf(".");
-      }
-      printf(":\n");
-    }
-
-    printf(":");
-    for (size_t i =0; i<COLLUMNS; i++) {
-      printf("-");
-    }
-    printf(":\n");
-  // Move cursor back to top
-    printf("\e[%iA", ROWS+2);
+     
+    map_generation(COLLUMNS, ROWS);
 
     int head = 0, tail =0;
     x[head]= COLLUMNS / 2;
