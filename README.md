@@ -5,7 +5,7 @@
 - [x] - Score
 - [x] - wasd mouvement
 - [x] - Pause
-- [ ] - Acceleration
+- [x] - Acceleration
 - [ ] - Menu
   - [ ] - Settings
 - [ ] - Online score-board
