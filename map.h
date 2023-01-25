@@ -27,6 +27,6 @@ void map_generation(const int COLLUMNS, const int ROWS){
 }
 
 void show_score(const int COLLUMNS, const int ROWS, int score) {
-  printf("\e[%iB\e[%iCGame score : %d",ROWS+2, COLLUMNS / 2-7, score);
+  printf("\e[%iB\e[%iCGame score : %d      ",ROWS+2, COLLUMNS / 2-7, score);
   printf("\e[%iF",ROWS+2 );
 }

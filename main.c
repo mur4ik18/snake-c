@@ -3,11 +3,9 @@
 #include <stdio.h>
 #include <termios.h>
 #include "map.h"
-#define COLLUMNS 40
-#define ROWS 20
+#define COLLUMNS 20
+#define ROWS 10
 //#define GAME_SPEED 5*100000
-
-
 
 int main(){
   int quit = 0;

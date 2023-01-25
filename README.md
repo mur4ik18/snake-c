@@ -6,6 +6,9 @@
 - [x] - wasd mouvement
 - [x] - Pause
 - [x] - Acceleration
+- [ ] - Color print
+- [ ] - Show direction
+- [ ] - Walls
 - [ ] - Menu
   - [ ] - Settings
 - [ ] - Online score-board
