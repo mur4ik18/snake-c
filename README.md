@@ -9,9 +9,6 @@
 - [ ] - Color print
 - [ ] - Show direction
 - [ ] - Walls
-- [ ] - Menu
-  - [ ] - Settings
-- [ ] - Online score-board
 
 ## Reference:
 - https://www.youtube.com/watch?v=cUJE10XEjrU
