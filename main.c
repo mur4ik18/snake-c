@@ -5,7 +5,6 @@
 #include "map.h"
 #define COLLUMNS 20
 #define ROWS 10
-//#define GAME_SPEED 5*100000
 
 int main(){
   int quit = 0;
