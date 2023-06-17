@@ -9,5 +9,3 @@ This is my little C project, to be honest I relied on code from a video (I added
 - [x] - Pause
 - [x] - Acceleration
 
-## Reference:
-- https://www.youtube.com/watch?v=cUJE10XEjrU
